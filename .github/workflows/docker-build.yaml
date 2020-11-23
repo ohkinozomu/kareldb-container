@@ -1,0 +1,14 @@
+name: Docker build
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+      - main
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: docker build
+      run: docker build docker
