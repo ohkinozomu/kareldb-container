@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: kareldb
-        image: ohkinozomu/kareldb:1.0.1-0.1.0
+        image: ohkinozomu/kareldb:1.0.3-0.1.0
         command: ["bin/kareldb-start", "config/kareldb.properties"]
         ports:
         - containerPort: 8765
