@@ -33,10 +33,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["bin/kareldb-start", "config/kareldb.properties"]
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+            - containerPort: 8765
           livenessProbe:
             httpGet:
               path: /
@@ -45,6 +44,11 @@ spec:
             httpGet:
               path: /
               port: http
+          volumeMounts:
+            - name: kareldb
+              mountPath: /usr/local/src/config/kareldb.properties
+              subPath: kareldb.properties
+              readOnly: true
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -59,3 +63,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: kareldb
+          configMap:
+            name: kareldb
+            items:
+            - key: kareldb.properties
+              path: kareldb.properties
