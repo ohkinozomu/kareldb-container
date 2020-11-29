@@ -36,14 +36,6 @@ spec:
           command: ["bin/kareldb-start", "config/kareldb.properties"]
           ports:
             - containerPort: 8765
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8765
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8765
           volumeMounts:
             - name: kareldb
               mountPath: /usr/local/src/config/kareldb.properties
