@@ -4,6 +4,6 @@ metadata:
   name: kareldb
 data:
   kareldb.properties: |
-    {{- with .Values.config.kareldb.properties }}
+    {{- with .Values.config.kareldbProperties }}
       {{- toYaml . | nindent 6 }}
     {{- end }}

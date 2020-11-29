@@ -62,7 +62,7 @@ tolerations: []
 affinity: {}
 
 config:
-  kareldb.properties: {}
+  kareldbProperties: {}
     # listeners=http://0.0.0.0:8765
     # cluster.group.id=kareldb
     # kafkacache.bootstrap.servers=your-kafka-cluster-bootstrap:9092
