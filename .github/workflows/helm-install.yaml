@@ -1,0 +1,21 @@
+name: Helm install
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+      - main
+    paths:
+      'chart/**'
+jobs:
+  kind-install:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - run: curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-linux-amd64
+    - run: chmod +x ./kind
+    - run: ./kind create cluster
+    - run: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+    - run: chmod 700 get_helm.sh
+    - run: ./get_helm.sh
+    - run: helm install kareldb ./chart
